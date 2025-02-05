@@ -1,6 +1,6 @@
 [package]
 name = "h3i"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Lucas Pardue <lucas@lucaspardue.com>", "Evan Rittenhouse <evanrittenhouse@gmail.com>"]
 edition = "2018"
 description = "Low-level HTTP/3 debugging and testing"
@@ -19,8 +19,8 @@ log = { version = "0.4", features = ["std"] }
 mio = { version = "0.8", features = ["net", "os-poll"] }
 multimap = "0.10"
 octets = { version = "0.3", path = "../octets"}
-qlog = { version = "0.14", path = "../qlog" }
-quiche = { version = "0.22", path = "../quiche", features = ["internal", "qlog"] }
+qlog = { version = "0.15", path = "../qlog" }
+quiche = { version = "0.23", path = "../quiche", features = ["internal", "qlog"] }
 rand = "0.8.5"
 smallvec = "1.11.2"
 serde_with = "1"

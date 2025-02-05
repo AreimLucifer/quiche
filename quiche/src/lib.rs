@@ -2866,10 +2866,8 @@ impl Connection {
                     EventData::KeyUpdated(qlog::events::security::KeyUpdated {
                         key_type:
                             qlog::events::security::KeyType::Client1RttSecret,
-                        old: None,
-                        new: String::new(),
-                        generation: None,
                         trigger: trigger.clone(),
+                        ..Default::default()
                     });
 
                 q.add_event_data_with_instant(ev_data_client, now).ok();
@@ -2878,10 +2876,8 @@ impl Connection {
                     EventData::KeyUpdated(qlog::events::security::KeyUpdated {
                         key_type:
                             qlog::events::security::KeyType::Server1RttSecret,
-                        old: None,
-                        new: String::new(),
-                        generation: None,
                         trigger,
+                        ..Default::default()
                     });
 
                 q.add_event_data_with_instant(ev_data_server, now).ok();
@@ -2975,13 +2971,8 @@ impl Connection {
                 EventData::PacketReceived(qlog::events::quic::PacketReceived {
                     header: qlog_pkt_hdr,
                     frames: Some(qlog_frames),
-                    is_coalesced: None,
-                    retry_token: None,
-                    stateless_reset_token: None,
-                    supported_versions: None,
                     raw: Some(qlog_raw_info),
-                    datagram_id: None,
-                    trigger: None,
+                    ..Default::default()
                 });
 
             q.add_event_data_with_instant(ev_data, now).ok();
@@ -3084,7 +3075,7 @@ impl Connection {
                                     length: Some(length as u64),
                                     from: Some(DataRecipient::Transport),
                                     to: Some(DataRecipient::Dropped),
-                                    raw: None,
+                                    ..Default::default()
                                 },
                             );
 
@@ -4621,14 +4612,9 @@ impl Connection {
                     EventData::PacketSent(qlog::events::quic::PacketSent {
                         header,
                         frames: Some(qlog_frames),
-                        is_coalesced: None,
-                        retry_token: None,
-                        stateless_reset_token: None,
-                        supported_versions: None,
                         raw: Some(qlog_raw_info),
-                        datagram_id: None,
                         send_at_time: Some(send_at_time),
-                        trigger: None,
+                        ..Default::default()
                     });
 
                 q.add_event_data_with_instant(ev_data, now).ok();
@@ -4873,7 +4859,7 @@ impl Connection {
                 length: Some(read as u64),
                 from: Some(DataRecipient::Transport),
                 to: Some(DataRecipient::Application),
-                raw: None,
+                ..Default::default()
             });
 
             let now = time::Instant::now();
@@ -5062,7 +5048,7 @@ impl Connection {
                 length: Some(sent as u64),
                 from: Some(DataRecipient::Application),
                 to: Some(DataRecipient::Transport),
-                raw: None,
+                ..Default::default()
             });
 
             let now = time::Instant::now();
@@ -8594,13 +8580,8 @@ impl TransportParams {
         EventData::TransportParametersSet(
             qlog::events::quic::TransportParametersSet {
                 owner: Some(owner),
-                resumption_allowed: None,
-                early_data_enabled: None,
                 tls_cipher: Some(format!("{cipher:?}")),
-                aead_tag_length: None,
                 original_destination_connection_id,
-                initial_source_connection_id: None,
-                retry_source_connection_id: None,
                 stateless_reset_token,
                 disable_active_migration: Some(self.disable_active_migration),
                 max_idle_timeout: Some(self.max_idle_timeout),
@@ -8624,8 +8605,6 @@ impl TransportParams {
                 initial_max_streams_bidi: Some(self.initial_max_streams_bidi),
                 initial_max_streams_uni: Some(self.initial_max_streams_uni),
 
-                preferred_address: None,
-
                 unknown_parameters: self
                     .unknown_params
                     .as_ref()
@@ -8641,6 +8620,8 @@ impl TransportParams {
                             .collect()
                     })
                     .unwrap_or_default(),
+
+                ..Default::default()
             },
         )
     }
